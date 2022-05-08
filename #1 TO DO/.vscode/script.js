@@ -4,6 +4,11 @@ const form = document.querySelector("form");
 const input = document.querySelector("#txtTaskName");
 const btnDeleteAll = document.querySelector("#btnDeleteAll");
 const taskList = document.querySelector("#task-list");
+const items = ['item1','item2','item3'];
+
+//load Items
+loadItems();
+
 
 // call event listeners
 eventListeners();
@@ -19,16 +24,18 @@ function eventListeners() {
   btnDeleteAll.addEventListener("click", deleteAllItems);
 }
 
-// add new item
-function addNewItem(e) {
-  if (input.value == "") {
-    alert("add new item");
-  }
 
-  // create li
+function loadItems(){
+    items.forEach(function(item){
+        CreateItem(item);
+    })
+}
+
+function CreateItem(text){
+     // create li
   const li = document.createElement("li");
   li.className = "list-group-item list-group-item-secondary";
-  li.appendChild(document.createTextNode(input.value));
+  li.appendChild(document.createTextNode(text));
 
   //create a
   const a = document.createElement("a");
@@ -42,7 +49,22 @@ function addNewItem(e) {
 
   //add li to ul
   taskList.appendChild(li);
+}
 
+
+
+// add new item
+function addNewItem(e) {
+  if (input.value == "") {
+    alert("add new item");
+  }
+
+//create item
+CreateItem(input.value); 
+
+
+
+//clear input(placeholder)
   input.value = "";
 
   console.log(li);
@@ -62,9 +84,9 @@ function deleteItem(e) {
 //delete all Items
 function deleteAllItems(e) {
   // 1. Yöntem!!!
-  // if(confirm('Are you sure?')){
-  //     taskList.innerHTML='';
-  //     }
+  if(confirm('Are you sure?')){
+      taskList.innerHTML='';
+      }
 
   //2.Yöntem
   // if('click')
@@ -73,13 +95,13 @@ function deleteAllItems(e) {
   // }
 
   //3.Yöntem
-  if (confirm("Are you sure!")) {
-    taskList.childNodes.forEach(function (item) {
-      if (item.nodeType === 1) {
-        item.remove();
-      }
-    });
-  }
+//   if (confirm("Are you sure!")) {
+//     taskList.childNodes.forEach(function (item) {
+//       if (item.nodeType === 1) {
+//         item.remove();
+//       }
+//     });
+//   }
 
   e.preventDefault();
 }
