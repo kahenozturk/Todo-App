@@ -44,6 +44,8 @@ taskList.appendChild(li);
 
 input.value='';
 
+console.log(li);
+
 
     e.preventDefault();
 
